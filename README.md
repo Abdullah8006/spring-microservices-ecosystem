@@ -1,6 +1,6 @@
 <img width="2182" height="998" alt="Untitled-2025-07-29-1738" src="https://github.com/user-attachments/assets/4dd1d28d-898b-4601-a19b-f39c6d47daa8" />
 
-```markdown
+
 # 🌐 Spring Cloud Microservices Ecosystem
 
 A complete **Spring Cloud–based microservices setup** demonstrating service discovery, API gateway routing, and secure communication between distributed services.
@@ -27,7 +27,6 @@ This project contains the following components:
 | `gateway-service` | API Gateway that routes external requests | `8083` |
 | `user-service` | Sample microservice providing REST APIs | Dynamic / `33889` |
 
----
 
 ## 🚀 **How to Run Locally**
 
