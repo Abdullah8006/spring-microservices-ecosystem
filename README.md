@@ -49,7 +49,7 @@ Access the Eureka dashboard at 👉 [http://localhost:8761](http://localhost:876
 
 ```bash
 cd ../user-service
-mvn spring-boot:run
+mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=3457
 ```
 
 Once started, it will register itself with Eureka as `user-service`.
