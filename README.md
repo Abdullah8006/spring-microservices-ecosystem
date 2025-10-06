@@ -50,6 +50,7 @@ Access the Eureka dashboard at 👉 [http://localhost:8761](http://localhost:876
 ```bash
 cd ../user-service
 mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=3457
+# multiple instances of user-service can be run on different ports. The gateway will load balance the services.
 ```
 
 Once started, it will register itself with Eureka as `user-service`.
