@@ -1,10 +1,8 @@
 package com.abd.user_service.service;
 
 import com.abd.user_service.entity.User;
-import com.abd.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,10 +10,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
-
-    @Transactional
     public List<User> fetchUsers() {
-        return userRepository.findAll();
+
+        User user = new User();
+        user.setId(123L);
+        user.setName("John Cena");
+
+        return List.of(user);
     }
 }
