@@ -70,6 +70,10 @@ Gateway runs at 👉 [http://localhost:8083](http://localhost:8083)
 
 Once all services are up:
 
+```bash
+curl http://192.168.1.9:8083/user-service/api/v1/users
+```
+
 | API                          | Description                           | Example URL                                       |
 | ---------------------------- | ------------------------------------- | ------------------------------------------------- |
 | `/user-service/api/v1/users` | User service endpoint through gateway | `http://localhost:8083/user-service/api/v1/users` |
