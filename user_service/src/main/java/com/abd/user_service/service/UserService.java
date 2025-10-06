@@ -11,16 +11,9 @@ import java.util.List;
 public class UserService {
 
     public List<User> fetchUsers() {
-<<<<<<< Updated upstream
-
-        User user = new User();
-        user.setId(123L);
-        user.setName("John Cena");
-=======
         User user = new User();
         user.setName("John Cena");
         user.setId(123L);
->>>>>>> Stashed changes
 
         return List.of(user);
     }
