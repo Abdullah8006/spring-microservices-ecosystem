@@ -17,6 +17,11 @@ spring:
   ai:
     openai:
       api-key: ${OPEN_AI_KEY}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/spring-cloud-ecosystem
 
 server:
   port: 0
@@ -48,3 +53,10 @@ management:
     health:
       show-details: always
 
+
+logging:
+  level:
+#    root: DEBUG
+    org:
+      springframework:
+        security: DEBUG
