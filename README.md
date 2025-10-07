@@ -9,7 +9,9 @@ This project contains the following components:
 
 - 🧩 **Eureka Server** – Service registry for discovery and load balancing  
 - 🚪 **Gateway Service** – Entry point for all client requests using Spring Cloud Gateway  
-- 👤 **User Service** – A sample microservice registered with Eureka and exposed via the gateway  
+- 👤 **User Service** – A sample microservice registered with Eureka and exposed via the gateway
+
+NOTE: The security implementation is done in a seperate branch [here](https://github.com/Abdullah8006/spring-microservices-ecosystem/tree/keycloak_integration).
 
 ---
 
