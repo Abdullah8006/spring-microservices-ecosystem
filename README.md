@@ -73,23 +73,49 @@ Gateway runs at 👉 [http://localhost:8083](http://localhost:8083)
 mkdir -m 777 ./keycloak_data # to be able to persist changes between docker restarts
 docker run -v ./keycloak_data:/opt/keycloak/data/h2 -p 127.0.0.1:8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.4.0 start-dev
 ```
+Once the keycloak server is up, open the admin console http://localhost:8080 and create an app specific realm. Then create a client and enable its client credential features.
 
-### **5. Fetch the access token from Keycloak and use it to call your user-service via the cloud gateway**
+### **5. Fetch the access token for end users and clients**
 
-Once the keycloak server is up, open the admin console http://localhost:8080 and create an app specific realm. Then create a client and enable its client credential features. After the setup is done use the below curl to fetch an access token.
+There are different grant types that can be initiated for different end users(machine, actual user).
+
+- For microservices
+For machines/microservices, client credentials grant types can be initiated with the following commands.
 
 ```
 curl \
-  -d "client_id=REGISTERD_CLIENT_ID_IN_KEYCLOAK" \
-  -d "client_secret=CLIENT_SECRET_FROM_KEYCLOAK" \
+  -d "client_id=user_service" \ # your client id in keycloak
+  -d "client_secret=SR1XRGfGEFaV7dsMf5bvUqdWXehVUygq" \  #your client secret in keycloak
   -d "grant_type=client_credentials" \
-  "http://localhost:8080/realms/YOUR_REAL/protocol/openid-connect/token"
+  "http://localhost:8080/realms/YOUR_REALM/protocol/openid-connect/token"
+
 ```
 
-Then use the below curl with the access token from the previous curl to call your user-service in the cloud gateway.
+The above command will return an access token which can be used like so
 
 ```
 curl -H "Authorization: Bearer ACCESS_TOKEN" -v http://localhost:8083/user-service/api/v1/users
+```
+
+
+
+- For users (from the browser)
+For end users/browsers, authorization code grant can be initiated by redirecting the users to the below url
+
+```
+http://localhost:8080/realms/YOUR_REALM/protocol/openid-connect/auth?client_id=CLIENT_ID_IN_KEYCLOAK&redirect_uri=http://localhost:3000/callback&response_type=code&scope=openid%20profile%20email
+```
+
+The user can use the screen provided by keycloak to log into the system. Once the login is complete, keycloak will redirect to the redirect_uri and send a code in the url.
+The code in the url can be used to get an access token. The below curl will get an access token.
+
+```
+curl --request POST 'http://localhost:8080/realms/YOUR_REALM/protocol/openid-connect/token' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data-urlencode 'grant_type=authorization_code' \
+  --data-urlencode 'client_id=YOUR_CLIENT_IN_KEYCLOAK' \
+  --data-urlencode 'code=CODE_FROM_THE_PREVIOUS_STEP' \
+  --data-urlencode 'redirect_uri=http://localhost:3000/callback'
 ```
 
 ---
