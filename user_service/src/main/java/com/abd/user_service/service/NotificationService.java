@@ -15,13 +15,20 @@ public class NotificationService {
 
     private static final String GET_NOTIFICATIONS_URL = "http://localhost:3000/api/v1/notifications"; // Replace with your actual URL
 
+    private final RestTemplate restTemplate = new RestTemplate();
+
     @CircuitBreaker(name = "notification_circuit_breaker", fallbackMethod = "getCachedNotificationList")
     public List<Notification> getNotifications() {
-        //Throw an exception to so that the fallback method can be exceuted.
+        List<Notification> notifications = restTemplate.exchange(
+                GET_NOTIFICATIONS_URL,
+                HttpMethod.GET,
+                null, // No request body for GET
+                new ParameterizedTypeReference<List<Notification>>() {
+                }
+        ).getBody();
 
-        if(true) throw new java.lang.RuntimeException("External service call failed");
-
-        return null;
+        System.out.println("Response from notification service:" + notifications);
+        return notifications;
     }
 
     public List<Notification> getCachedNotificationList(Exception ex) {
