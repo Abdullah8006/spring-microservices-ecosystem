@@ -71,7 +71,7 @@ Gateway runs at 👉 [http://localhost:8083](http://localhost:8083)
 
 ```bash
 mkdir -m 777 ./keycloak_data # to be able to persist changes between docker restarts
-docker run -v ./keycloak_data:/opt/keycloak/data/h2 -p 127.0.0.1:8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.4.0 start-dev
+docker run -v /home/abd/keycloak_data:/opt/keycloak/data/h2 -p 127.0.0.1:8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.4.0 start-dev
 ```
 Once the keycloak server is up, open the admin console http://localhost:8080 and create an app specific realm. Then create a client and enable its client credential features.
 
